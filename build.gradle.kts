@@ -26,7 +26,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     //utils
-    implementation ("org.reflections:reflections:0.9.12")
+    implementation ("org.reflections:reflections:0.10.2")
     compileOnly ("org.projectlombok:lombok")
     annotationProcessor ("org.projectlombok:lombok")
     //clickhouse
