@@ -6,7 +6,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@EnableConfigurationProperties(SpringClickHouseProperties.class)
+@EnableConfigurationProperties(SpringClickClientHouseProperties.class)
 @ConditionalOnProperty(prefix = "clickhouse-data", name = "enabled", havingValue = "true", matchIfMissing = true)
 @ComponentScan(basePackages = "io.clickhouse.springdata")
 public class ClickhouseAutoConfiguration {

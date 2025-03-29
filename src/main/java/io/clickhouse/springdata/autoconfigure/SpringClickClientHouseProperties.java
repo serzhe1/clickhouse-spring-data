@@ -7,14 +7,15 @@ import java.time.Duration;
 import java.util.Map;
 
 /**
- * @author Sergei Ladygin
  * General settings and parameters for {@link com.clickhouse.client.api.Client} configuration
  * @see <a href="https://clickhouse.com/docs/integrations/language-clients/java/client#configuration">official documentation</a>
+ * @author
+ *          Sergei Ladygin
  * @since 1.0.0
  */
 @Data
-@ConfigurationProperties(prefix = "spring.clickhouse-data")
-public class SpringClickHouseProperties {
+@ConfigurationProperties(prefix = "spring.clickhouse-data.client")
+public class SpringClickClientHouseProperties {
     /**
      * General connection settings
      */

@@ -12,9 +12,8 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class ClientConfiguration {
-
     @Bean
-    @ConditionalOnMissingBean
+    @ConditionalOnMissingBean(Client.class)
     public Client client(ClientFactory clientFactory) {
         return clientFactory.build();
     }
