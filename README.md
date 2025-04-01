@@ -1,7 +1,74 @@
-# clickhouse-spring-data
-Java library for easier use of ClickHouse in Spring Framewokr
+# ClickHouse Spring Data
 
-## application.yaml example
+Spring Boot auto-configuration and integration with [ClickHouse](https://clickhouse.com) using modern Java client.
+
+## Usage Example
+
+To start using **clickhouse-spring-data**, follow these simple steps:
+
+---
+
+### 1. Enable ClickHouse integration in your Spring Boot application
+
+Annotate your main Spring Boot application class with `@EnableClickHouseData` to activate table scanning and schema registration.
+
+```java
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import io.clickhouse.springdata.annotation.EnableClickHouseData;
+
+@SpringBootApplication
+@EnableClickHouseData
+public class MyApp {
+    public static void main(String[] args) {
+        SpringApplication.run(MyApp.class, args);
+    }
+}
+```
+
+### 2. Mark your ClickHouse entity classes
+
+Use @Table annotation to mark your classes as ClickHouse tables.
+
+```java
+import io.clickhouse.springdata.annotation.Table;
+
+@Table(name = "person")
+public class PersonEntity {
+    private Long id;
+    private String name;
+
+}
+```
+
+### 3. Inject and use the ClickHouse Client
+
+```java
+import com.clickhouse.client.api.Client;
+import org.springframework.stereotype.Service;
+import tables.PersonEntity;
+
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+
+@Service
+public class PersonService {
+
+    private final Client client;
+
+    public PersonService(Client client) {
+        this.client = client;
+    }
+
+    public void listAll() throws ExecutionException, InterruptedException {
+        String query = "SELECT * FROM person";
+        List<PersonEntity> people = client.queryAll(query, PersonEntity.class, client.getTableSchema("person"));
+        people.forEach(System.out::println);
+    }
+}
+```
+You can use methods like queryAll(...), queryOne(...), etc., to work with your registered entities.
+## Spring application.yaml config
 ```yaml
 spring:
   clickhouse-data:
@@ -16,7 +83,7 @@ spring:
       use-ssl-authentication: false
       enable-connection-pool: true
 
-      # Timeouts (Duration: строки типа "5s", "1m", "10m", "30s", "60s")
+      # Timeouts (Duration: "5s", "1m", "10m", "30s", "60s")
       connect-timeout: 5s
       connection-request-timeout: 1s
       socket-timeout: 30s
@@ -74,3 +141,7 @@ spring:
       server-setting:
         max_execution_time: "60"
 ```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

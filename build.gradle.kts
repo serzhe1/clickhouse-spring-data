@@ -54,7 +54,6 @@ publishing {
                 name.set("clickhouse-spring-data")
                 description.set("Spring Boot integration for ClickHouse")
                 url.set(project.findProperty("gpr.url") as String? ?: System.getenv("GITHUB_URL"))
-//                url.set("https://maven.pkg.github.com/serzhe1/clickhouse-spring-data")
             }
         }
     }
