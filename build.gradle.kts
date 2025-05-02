@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "io.clickhouse.springdata"
-version = "1.0.0"
+version = "1.1.0-SNAPSHOT"
 
 java {
     toolchain {
@@ -43,37 +43,35 @@ tasks.withType<Test> {
 
 publishing {
     publications {
-        create<MavenPublication>("gpr") {
+        create<MavenPublication>("mavenJava") {
             from(components["java"])
 
-            groupId = "com.github.${project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_USERNAME")}"
-            artifactId = "clickhouse-spring-data"
-            version = "1.0.0"
+            groupId = group.toString()
+            artifactId = "clickhouse-spring-boot-starter"
 
             pom {
-                name.set("clickhouse-spring-data")
-                description.set("Spring Boot integration for ClickHouse")
-                url.set(project.findProperty("gpr.url") as String? ?: System.getenv("GITHUB_URL"))
+                name.set("ClickHouse Spring Boot Starter")
+                description.set("Spring Boot Starter for ClickHouse")
+//                url.set("https://github.com/serzhe1/clickhouse-spring-boot-starter")
+                licenses {
+                    license {
+                        name.set("Apache 2")
+//                        url.set("https://opensource.org/licenses/MIT")
+                    }
+                }
+                developers {
+                    developer {
+                        id.set("serzhe1")
+                        name.set("Sergei Ladygin")
+                        email.set("s.a.ladygin@yandex.ru")
+                    }
+                }
+                scm {
+//                    connection.set("scm:git:git://github.com/serzhe1/clickhouse-spring-boot-starter.git")
+//                    developerConnection.set("scm:git:ssh://github.com/serzhe1/clickhouse-spring-boot-starter.git")
+//                    url.set("https://github.com/serzhe1/clickhouse-spring-boot-starter")
+                }
             }
         }
     }
-
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/serzhe1/clickhouse-spring-data")
-            credentials {
-                username = project.findProperty("gpr.user") as String? ?: System.getenv("GITHUB_USERNAME")
-                password = project.findProperty("gpr.key") as String? ?: System.getenv("GITHUB_TOKEN")
-            }
-        }
-    }
-}
-
-tasks.getByName<Jar>("jar") {
-    enabled = true
-}
-
-tasks.getByName<org.springframework.boot.gradle.tasks.bundling.BootJar>("bootJar") {
-    enabled = false
 }
