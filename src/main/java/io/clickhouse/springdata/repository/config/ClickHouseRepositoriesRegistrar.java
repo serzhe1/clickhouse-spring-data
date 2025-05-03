@@ -4,7 +4,6 @@ import io.clickhouse.springdata.repository.annotation.EnableClickHouseRepositori
 import io.clickhouse.springdata.repository.core.ClickHouseRepositoryMarker;
 import org.reflections.Reflections;
 import org.reflections.scanners.Scanners;
-import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
